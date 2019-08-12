@@ -20,7 +20,8 @@ namespace WebApplication1.Domain
             this.Orders = new HashSet<Orders>();
             this.CustomerDemographics = new HashSet<CustomerDemographics>();
         }
-    
+
+        public int total { get; set; }
         public string CustomerID { get; set; }
         public string CompanyName { get; set; }
         public string ContactName { get; set; }
