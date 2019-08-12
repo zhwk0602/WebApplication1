@@ -1,0 +1,59 @@
+﻿@model WebApplication1.Domain.Customers
+<head>
+    <style>
+        #customers {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+            #customers td, #customers th {
+                border: 1px solid #ddd;
+                padding: 8px;
+            }
+
+            #customers tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+
+            #customers tr:hover {
+                background-color: #ddd;
+            }
+
+            #customers th {
+                padding-top: 12px;
+                padding-bottom: 12px;
+                text-align: left;
+                background-color: #4CAF50;
+                color: white;
+            }
+    </style>
+</head>
+<body>
+    @using (Html.BeginForm("Detail", "Detail", FormMethod.Post))
+    {
+    <table id="customers">
+        <tr>
+            <th>CustomerID</th>
+            <th>CompanyName</th>
+            <th>ContactName</th>
+            <th>Edit</th>
+        </tr>
+     
+            <tr>
+                <td>
+                    @Html.TextBoxFor(modelItem => Model.CustomerID)
+                </td>
+                <td>
+                    @Html.TextBoxFor(modelItem => Model.CompanyName, new { @style = "width:500px;" })
+                </td>
+                <td>
+                    @Html.TextBoxFor(modelItem =>Model.ContactName)
+                </td>
+                <td> <input type="submit" value="確認編輯"></td>
+            </tr>
+       
+        </table>
+
+    }
+</body>
