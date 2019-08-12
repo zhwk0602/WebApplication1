@@ -1,8 +1,5 @@
 ﻿@*@model List<WebApplication1.Domain.Customers>*@
-@model  IEnumerable<WebApplication1.Domain.Customers>
- @model WebApplication1.Models.Totall
- @using PagedList;
-@using PagedList.Mvc;
+@model PagedList.IPagedList<WebApplication1.Domain.Customers>
 
 <head>
     <style>
@@ -74,25 +71,33 @@
             </tr>
         }
     </table>
-    @foreach (var ii in Model)
-    {
 
-        </li>
-        <li class="page-item"><a class="page-link" href="#"></a></li>
-        <li class="page-item active" aria-current="page">
-            <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-
-    }
-    <nav aria-label="...">
+    <nav>
         <ul class="pagination">
-            <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-
             <li class="page-item">
-                <a class="page-link" href="#">Next</a>
+                <a class="page-link" href="?Page=@(Model.PageNumber-1)" tabindex="-1" aria-disabled="true">Previous</a>
             </li>
+
+            @for (var i = 1; i <= Model.PageCount; i++)
+            {
+
+                if (Model.PageNumber == i)
+                {
+                    <li class="page-item active" aria-current="page"><a class="page-link" href="?Page=@i">@i</a></li>
+
+                }
+                else
+                {
+                    <li class="page-item"><a class="page-link" href="?Page=@i">@i</a></li>
+                }
+
+            }
+            @if (Model.PageNumber != Model.PageCount)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="?Page=@(Model.PageNumber+1)">Next</a>
+                </li>
+            }
         </ul>
     </nav>
 </body>

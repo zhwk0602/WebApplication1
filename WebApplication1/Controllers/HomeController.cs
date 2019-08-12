@@ -3,14 +3,14 @@ using System.Web.Mvc;
 using PagedList;
 using PagedList.Mvc;
 using WebApplication1.Domain;
-using WebApplication1.Models;
+
 
 namespace WebApplication1.Controllers
 {
     public class HomeController : Controller
     {
-        private NorthwindEntities db = new NorthwindEntities();
-        private int pageSize = 5;
+        private NorthwindEntities DB = new NorthwindEntities();
+        private int PageSize = 5;
         //public ActionResult Index()
 
         //{
@@ -23,13 +23,11 @@ namespace WebApplication1.Controllers
         {
             int currentPage = page < 1 ? 1 : page;
 
-            var customer = db.Customers.OrderBy(x => x.CustomerID);
-            var t = new Customers();
-            t.total = customer.Count();
-            var s = t.total / pageSize;
-            var result = customer.ToPagedList(currentPage, pageSize);
-            var totall = new Models.Totall(s,result);
-            return View(totall);
+            var customer = DB.Customers.OrderBy(x => x.CustomerID);
+            
+            var result = customer.ToPagedList(currentPage, PageSize);
+     
+            return View(result);
         }
 
         public ActionResult About()
