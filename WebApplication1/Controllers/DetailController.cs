@@ -8,7 +8,7 @@ namespace WebApplication1.Controllers
 {
     public class DetailController : Controller
     {
-        private NorthwindEntities DB = new NorthwindEntities();
+       
 
         // GET: Detail
         public ActionResult Edit(string id)
@@ -17,6 +17,33 @@ namespace WebApplication1.Controllers
 
             var item = entity.Customers.Where(x => x.CustomerID == id).FirstOrDefault();
             return View(item);
+        }
+      
+        public ActionResult Select()
+        {
+            var entity = new NorthwindEntities();
+
+            var item = entity.Categories;
+            
+            List<SelectListItem> mySelectItemList = new List<SelectListItem>();
+
+            foreach (var x in item)
+            {
+                mySelectItemList.Add(new SelectListItem()
+                {
+                    Value = x.CategoryID.ToString(),
+                    Text = x.CategoryName,
+                    
+                    Selected = false
+                });
+            }
+
+            ViewModel model = new ViewModel() //上面的 Model
+            {
+                MyList = mySelectItemList
+            };
+
+            return Json(model, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

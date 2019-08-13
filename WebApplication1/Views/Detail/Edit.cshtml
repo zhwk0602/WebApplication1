@@ -1,4 +1,5 @@
 ﻿@model WebApplication1.Domain.Customers
+
 <head>
     <style>
         #customers {
@@ -80,6 +81,27 @@
 
                     }
                 });
+
+            });
+
+            //下拉選單利用AJAX取資料庫的值
+            $.ajax({
+                type: 'GET',
+                url: "/Detail/Select",
+
+                dataType: 'json', // 預期從server接收的資料型態
+                contentType: 'application/json; charset=utf-8', // 要送到server的資料型態
+
+                success: function (data) {
+
+                    var jo = data;
+
+                    $("#aa").append("<option value=''>請選擇</option>");
+                    for (i = 0; i < jo.MyList.length; i++) {
+                        $("#aa").append("<option value='" + jo.MyList[i].Value + "'>" + jo.MyList[i].Text + "</option>");
+
+                    };
+                }
             });
 
         });
@@ -110,6 +132,6 @@
             <td> <input id="a01" type="button" value="確認編輯"></td>
         </tr>
     </table>
-
-    }
+    <select id="aa">
+    </select>
 </body>
