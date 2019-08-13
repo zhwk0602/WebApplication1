@@ -28,10 +28,67 @@
                 color: white;
             }
     </style>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('#a01').click(function () {
+                var data = {
+                    customerID: $("#CustomerID").val(),
+                    companyName: $("#CompanyName").val(),
+                    contactName: $("#ContactName").val()
+                };
+
+                $.ajax({
+                    type: 'Post',
+                    url: "/Detail/Edit",
+
+                    dataType: 'json', // 預期從server接收的資料型態
+                    contentType: 'application/json; charset=utf-8', // 要送到server的資料型態
+                    data: JSON.stringify(data),
+                    //error: function () {
+                    //    alert("asd");
+                    //};
+
+                    success: function (response) {
+
+                        if (response.IsSuccess) {
+
+                            swal.fire(
+                                'good！',
+                                '你成功了',
+                                'success'
+                            ).then(
+                                function () {
+                                    window.location.href = "/"
+                                },
+
+                            );
+                            //alert(response.Result);
+
+                        }
+                        else {
+                            var message = '';
+                            response.ErrorMessage.forEach(x => message += '\n' + x);
+
+                            swal.fire(
+                                'error！！！！',
+                                '失敗',
+                                'error'
+                            )/*alert(message);*/
+                        }
+
+                    }
+                });
+            });
+
+        });
+    </script>
 </head>
+
 <body>
-    @using (Html.BeginForm())
-    {@Html.AntiForgeryToken()
+    @*@using (Html.BeginForm("EditConfirm","Detail",FormMethod.Post))
+        {@Html.AntiForgeryToken()*@
     <table id="customers">
         <tr>
             <th>CustomerID</th>
@@ -39,21 +96,20 @@
             <th>ContactName</th>
             <th>Edit</th>
         </tr>
-     
-            <tr>
-                <td>
-                    @Html.TextBoxFor(modelItem => Model.CustomerID)
-                </td>
-                <td>
-                    @Html.TextBoxFor(modelItem => Model.CompanyName, new { @style = "width:500px;" })
-                </td>
-                <td>
-                    @Html.TextBoxFor(modelItem =>Model.ContactName)
-                </td>
-                <td> <input type="submit" value="確認編輯"></td>
-            </tr>
-       
-        </table>
+
+        <tr>
+            <td>
+                @Html.TextBoxFor(modelItem => Model.CustomerID)
+            </td>
+            <td>
+                @Html.TextBoxFor(modelItem => Model.CompanyName, new { @style = "width:500px;" })
+            </td>
+            <td>
+                @Html.TextBoxFor(modelItem => Model.ContactName)
+            </td>
+            <td> <input id="a01" type="button" value="確認編輯"></td>
+        </tr>
+    </table>
 
     }
 </body>
