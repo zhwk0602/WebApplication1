@@ -10,7 +10,7 @@ namespace WebApplication1.Controllers
     public class DetailController : Controller
     {
         // GET: Detail
-        public ActionResult Detail(string id)
+        public ActionResult Edit(string id)
         {
             var entity = new NorthwindEntities();
 

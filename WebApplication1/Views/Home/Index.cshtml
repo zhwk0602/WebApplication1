@@ -30,8 +30,18 @@
                 color: white;
             }
     </style>
+
+    <script type="text/javascript">
+        function del() {
+            if (!confirm("確認要刪除？")) {
+                window.event.returnValue = false;
+            }
+        }
+    </script>
 </head>
 <body>
+    @using (Html.BeginForm("Delect","Home",FormMethod.Post))
+    {@Html.AntiForgeryToken()
     <table id="customers">
         <tr>
             <th>CustomerID</th>
@@ -55,18 +65,18 @@
 
                 <td>
                     @Html.ActionLink(
-                            "編輯",
-                            "Detail",
-                            "Detail",
-                            routeValues: new
-                            {
-                                id = item.CustomerID
-                            },
-                            htmlAttributes: null
-                        )
+                     "編輯",
+                     "Edit",
+                     "Detail",
+                     routeValues: new
+                     {
+                         id = item.CustomerID
+                     },
+                     htmlAttributes: null
+                 )
                 </td>
                 <td>
-                    <input type="submit" value="刪除">
+                    <input type="submit" value="刪除" onclick="return del()">
                 </td>
             </tr>
         }
@@ -75,7 +85,7 @@
     <nav>
         <ul class="pagination">
             <li class="page-item">
-                <a class="page-link" href="?Page=@(Model.PageNumber-1)" tabindex="-1" aria-disabled="true">Previous</a>
+                <a class="page-link" href="?Page=@(Model.PageNumber - 1)" tabindex="-1" aria-disabled="true">Previous</a>
             </li>
 
             @for (var i = 1; i <= Model.PageCount; i++)
@@ -95,9 +105,10 @@
             @if (Model.PageNumber != Model.PageCount)
             {
                 <li class="page-item">
-                    <a class="page-link" href="?Page=@(Model.PageNumber+1)">Next</a>
+                    <a class="page-link" href="?Page=@(Model.PageNumber + 1)">Next</a>
                 </li>
             }
         </ul>
     </nav>
+}
 </body>

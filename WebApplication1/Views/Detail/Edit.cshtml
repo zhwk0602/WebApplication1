@@ -30,8 +30,8 @@
     </style>
 </head>
 <body>
-    @using (Html.BeginForm("Detail", "Detail", FormMethod.Post))
-    {
+    @using (Html.BeginForm())
+    {@Html.AntiForgeryToken()
     <table id="customers">
         <tr>
             <th>CustomerID</th>

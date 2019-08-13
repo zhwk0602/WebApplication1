@@ -24,9 +24,9 @@ namespace WebApplication1.Controllers
             int currentPage = page < 1 ? 1 : page;
 
             var customer = DB.Customers.OrderBy(x => x.CustomerID);
-            
+
             var result = customer.ToPagedList(currentPage, PageSize);
-     
+
             return View(result);
         }
 
@@ -42,6 +42,22 @@ namespace WebApplication1.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delect(WebApplication1.Domain.Customers item)
+        {
+            if (!this.ModelState.IsValid)
+
+            {
+                return View(item);
+            }
+            Customers customer = DB.Customers.Find(item.CustomerID);
+            DB.Customers.Remove(customer);
+            //DB.SaveChanges();
+
+            return Redirect("Index");
+
         }
     }
 }

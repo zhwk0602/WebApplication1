@@ -37,7 +37,7 @@ namespace WebApplication1.Domain
         public virtual DbSet<Employees> Employees { get; set; }
         public virtual DbSet<Order_Details> Order_Details { get; set; }
         public virtual DbSet<Orders> Orders { get; set; }
-        public virtual DbSet<Products> Products { get; set; }
+        public virtual DbSet<Products> Customer { get; set; }
         public virtual DbSet<Region> Region { get; set; }
         public virtual DbSet<Shippers> Shippers { get; set; }
         public virtual DbSet<Suppliers> Suppliers { get; set; }
